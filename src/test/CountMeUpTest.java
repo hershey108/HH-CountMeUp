@@ -5,21 +5,26 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.logging.Logger;
+
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
 
 public class CountMeUpTest {
 
+    private final static Logger logger = Logger.getLogger(CMUDatabaseManager.class.getName());
+
     @Before
     public void setup() {
         // Set up a clean new table
-        CountMeUpController.setupTable();
+        CountMeUpController.setupTables();
     }
 
     @After
     public void teardown() {
-        CountMeUpController.teardownTable();
+        // Get rid of the table, in preparation for a new round.
+        CountMeUpController.teardownTables();
     }
 
     @Test
@@ -33,7 +38,7 @@ public class CountMeUpTest {
             assertEquals((String)result.get("success"),"true");
         } catch (ParseException e) {
             fail("Mangled JSON string");
-            System.err.println("Failure when parsing json");
+            logger.severe("Failure when parsing json");
             e.printStackTrace();
         }
     }
@@ -67,7 +72,7 @@ public class CountMeUpTest {
             assertEquals((String) result4.get("reason"),"vote limit");
         } catch (ParseException e) {
             fail("Mangled JSON string");
-            System.err.println("Failure when parsing json");
+            logger.severe("Failure when parsing json");
             e.printStackTrace();
         }
 
@@ -125,7 +130,7 @@ public class CountMeUpTest {
             assertEquals((String) result.get("candidate-5"),"8");
         } catch (ParseException e) {
             fail("Mangled JSON string");
-            System.err.println("Failure when parsing json");
+            logger.severe("Failure when parsing json");
             e.printStackTrace();
         }
 

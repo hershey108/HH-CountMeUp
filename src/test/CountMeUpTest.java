@@ -18,6 +18,7 @@ public class CountMeUpTest {
     @Before
     public void setup() {
         // Set up a clean new table
+        teardown();
         CountMeUpController.setupTables();
     }
 
@@ -35,7 +36,7 @@ public class CountMeUpTest {
         try {
             // Parse the response, should be successful
             JSONObject result = (JSONObject) new JSONParser().parse(resultString);
-            assertEquals((String)result.get("success"),"true");
+            assertEquals("true",(String)result.get("success"));
         } catch (ParseException e) {
             fail("Mangled JSON string");
             logger.severe("Failure when parsing json");
@@ -58,18 +59,18 @@ public class CountMeUpTest {
 
             // Parse the results - the first 3 votes should be fine
             JSONObject result1 = (JSONObject) jsonparser.parse(resultString1);
-            assertEquals((String)result1.get("success"),"true");
+            assertEquals("true",(String)result1.get("success"));
 
             JSONObject result2 = (JSONObject) jsonparser.parse(resultString2);
-            assertEquals((String)result2.get("success"),"true");
+            assertEquals("true",(String)result2.get("success"));
 
             JSONObject result3 = (JSONObject) jsonparser.parse(resultString3);
-            assertEquals((String)result3.get("success"),"true");
+            assertEquals("true",(String)result3.get("success"));
 
             // Fourth vote attempt should be a failure, with a reason for the front end to know why it failed.
             JSONObject result4 = (JSONObject) jsonparser.parse(resultString4);
-            assertEquals((String)result4.get("success"),"false");
-            assertEquals((String) result4.get("reason"),"vote limit");
+            assertEquals("false",(String)result4.get("success"));
+            assertEquals("vote limit",(String) result4.get("reason"));
         } catch (ParseException e) {
             fail("Mangled JSON string");
             logger.severe("Failure when parsing json");
@@ -123,11 +124,11 @@ public class CountMeUpTest {
             JSONObject result = (JSONObject) new JSONParser().parse(resultString);
 
             // Check that the returned data matches up with the votes as abover
-            assertEquals((String) result.get("candidate-1"),"6");
-            assertEquals((String) result.get("candidate-2"),"4");
-            assertEquals((String) result.get("candidate-3"),"5");
-            assertEquals((String) result.get("candidate-4"),"7");
-            assertEquals((String) result.get("candidate-5"),"8");
+            assertEquals("6",(String) result.get("candidate-1"));
+            assertEquals("4",(String) result.get("candidate-2"));
+            assertEquals("5",(String) result.get("candidate-3"));
+            assertEquals("7",(String) result.get("candidate-4"));
+            assertEquals("8",(String) result.get("candidate-5"));
         } catch (ParseException e) {
             fail("Mangled JSON string");
             logger.severe("Failure when parsing json");

@@ -232,7 +232,7 @@ public class CMUDatabaseManager {
                 userHasVoted = true;
                 logger.info("Checking vote eligibility for user " + userId);
                 // Check if the user has voted 3 times already. If so, return without casting a new vote.
-                if (rs.getInt(userId) >= 3) {
+                if (rs.getInt("VOTE_COUNT") >= 3) {
                     logger.info(userId + " is ineligible to vote.");
                     return 1;
                 }
@@ -262,9 +262,10 @@ public class CMUDatabaseManager {
 
             // Cast the vote and track it in our user table
             castRow = castVoteStmt.executeUpdate();
-            castVoteStmt.close();
             trackRow = trackVoteStmt.executeUpdate();
-            trackVoteStmt.close();
+
+            // Close out the connection and transaction
+            c.commit();
 
 
             logger.info("Voted successfully");
@@ -286,10 +287,19 @@ public class CMUDatabaseManager {
             e.printStackTrace();
             return 2;
         } finally {
-            // Close out the connection and transaction
-            c.commit();
-            c.setAutoCommit(oldAutoCommit);
-            c.close();
+
+            if (castVoteStmt != null) {
+                castVoteStmt.close();
+            }
+
+            if (trackVoteStmt != null) {
+                trackVoteStmt.close();
+            }
+
+            if (c != null) {
+                c.setAutoCommit(oldAutoCommit);
+                c.close();
+            }
         }
 
         if (trackRow == 1 && castRow == 1) {

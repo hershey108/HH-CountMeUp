@@ -1,3 +1,4 @@
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.sql.*;
@@ -307,5 +308,61 @@ public class CMUDatabaseManager {
         }
 
         return 3;
+    }
+
+    /**
+     * Returns the values of the vote by candidate table
+     * @return JSONObject containing the votes by candidate table data
+     */
+    public static JSONObject getVotes() {
+        logger.info("Retrieving candidate votes");
+
+        // Prepare our variables for assignment
+        Connection c = null;
+        Statement voteCountStmt = null;
+
+        try {
+
+            // Confirm we have the sqlite jdbc driver available
+            Class.forName("org.sqlite.JDBC");
+
+            // Open up the connection and statement
+            c = DriverManager.getConnection(JDBC_CONN);
+            voteCountStmt = c.createStatement();
+
+            // Request everything from the table
+            String sql = "SELECT * FROM " + VOTE_TABLE_NAME;
+
+            ResultSet rs = voteCountStmt.executeQuery(sql);
+
+            JSONObject result = new JSONObject();
+
+            while (rs.next()) {
+                result.put(rs.getString("CANDIDATE_ID"), "" + rs.getInt("VOTE_COUNT"));
+            }
+
+            // Close out our statement and connection
+            voteCountStmt.close();
+            c.close();
+
+            // Return the ResultSet
+            return result;
+
+        } catch (SQLException e) {
+            // Something unexpected happened
+            logger.severe("Error when querying vote count table. Specifically an error with SQL.");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // The SQL driver isn't available. This causes problems.
+            logger.severe("Error when querying vote count table. Specifically: SQL JDBC driver not found.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            // Something else when wrong
+            logger.severe("Error when querying vote count table.");
+            e.printStackTrace();
+        }
+
+        return null;
+
     }
 }

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="jquery.modal.min.css" type="text/css" media="screen" />
 
     <script src="cmu.js"></script>
 
@@ -42,7 +44,25 @@
         <div class="mdl-layout__tab-panel is-active" id="overview">
             <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
                 <div class="mdl-card mdl-cell mdl-cell--12-col">
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                        <h4 class="mdl-cell mdl-cell--12-col">Details</h4>
+                        <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                            <h5>What is Count Me Up?</h5>
+                            This application allows you to vote on candidates, and also track their current vote counts. When voting, please enter your email address and select a candidate. Please note, each user can only vote a maximum of 3 times.
+                        </div>
+                        <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                            <h5>Live updates</h5>
+                            The candidates' vote count table is a live update, which refreshes each second. To see this in action please click the following button to have a large number of random votes cast. This will only work once per page load.<br>
+                            <button id="simulate" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="margin: 10px;">
+                                Simulate votes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                <div class="mdl-card mdl-cell mdl-cell--6-col">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="margin: auto;width: 50%;">
                     <thead>
                     <tr>
                         <th class="mdl-data-table__cell--non-numeric">Candidate</th>
@@ -53,50 +73,31 @@
                     </tbody>
                 </table>
                 </div>
-            </section>
-            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                <div class="mdl-card mdl-cell mdl-cell--12-col">
-                    <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
-                        <h4 class="mdl-cell mdl-cell--12-col">Details</h4>
-                        <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                            <div class="section__circle-container__circle mdl-color--primary"></div>
-                        </div>
-                        <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                            <h5>Lorem ipsum dolor sit amet</h5>
-                            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-                        </div>
-                        <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                            <div class="section__circle-container__circle mdl-color--primary"></div>
-                        </div>
-                        <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                            <h5>Lorem ipsum dolor sit amet</h5>
-                            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-                        </div>
-                        <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
-                            <div class="section__circle-container__circle mdl-color--primary"></div>
-                        </div>
-                        <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                            <h5>Lorem ipsum dolor sit amet</h5>
-                            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>.
-                        </div>
+                <div class="mdl-card mdl-cell mdl-cell--6-col">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Vote!</h2>
                     </div>
-                    <div class="mdl-card__actions">
-                        <a href="#" class="mdl-button">Read our features</a>
+                    <div id="vote-area" class="mdl-card__supporting-text">
                     </div>
                 </div>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
-                    <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn2">
-                    <li class="mdl-menu__item">Lorem</li>
-                    <li class="mdl-menu__item" disabled>Ipsum</li>
-                    <li class="mdl-menu__item">Dolor</li>
-                </ul>
             </section>
             <footer class="mdl-mega-footer">
                 <div class="mdl-mega-footer--bottom-section">
                 </div>
             </footer>
+        </div>
+        <!-- Modals -->
+        <div id="require-user-id" style="display:none;">
+            <p>Please enter an email address.<a href="#" rel="modal:close">Close</a> or press ESC</p>
+        </div>
+        <div id="thank-you" style="display:none;">
+            <p>Thank you for voting!<a href="#" rel="modal:close">Close</a> or press ESC</p>
+        </div>
+        <div id="limit" style="display:none;">
+            <p>We're sorry, you've reached your vote limit. Thanks for participating!<a href="#" rel="modal:close">Close</a> or press ESC</p>
+        </div>
+        <div id="error" style="display:none;">
+            <p>We're sorry, there was an error when attempting to vote. Please try again.<a href="#" rel="modal:close">Close</a> or press ESC</p>
         </div>
     </main>
 </div>

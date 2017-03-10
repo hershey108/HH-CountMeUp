@@ -2,6 +2,7 @@ import org.json.simple.JSONObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.logging.Logger;
 
 /**
@@ -73,10 +74,40 @@ public class CountMeUpController {
 
     }
 
+    /**
+     * Calls the CMUDatabase manager to return the current tally of votes for all candidates.
+     * @return String JSON string of the results from the votes table
+     */
     public static String countMeUp() {
 
         JSONObject result = CMUDatabaseManager.getVotes();
 
         return result.toString();
+    }
+
+    /**
+     * Simulates a large number of votes, to demonstrate realtime updates on the frontend.
+     */
+    public static void simulateVotes() {
+        logger.info("Starting simulating votes");
+        // track how long this takes.
+        long start = System.currentTimeMillis();
+        int simulations = 10000;
+
+        // Get a random number generator, and define the min and max values. Bear in mind, the max is exclusive of the
+        // calculation, hence we pick one higher than the CANDIDATE_COUNT
+        Random gen = new Random();
+        int min = 1;
+        int max = CANDIDATE_COUNT+1;
+
+        int currentCandidate;
+
+        for (int i = 0; i < simulations; i++) {
+            currentCandidate = gen.nextInt(max - min) +1;
+            vote("sim"+i,"candidate-"+currentCandidate);
+        }
+
+        long executionTime = System.currentTimeMillis() - start;
+        logger.info("Simulation complete. Execution Time: " + (executionTime/1000) + "s");
     }
 }

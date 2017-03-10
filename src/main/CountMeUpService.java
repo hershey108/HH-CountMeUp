@@ -28,6 +28,24 @@ public class CountMeUpService {
         return CountMeUpController.countMeUp();
     }
 
+    /**
+     * Called from the front end to generate many simulated votes, this allows us to see the table update in realtime.
+     * @return String A simple message to let the front-end know it's complete.
+     */
+    @GET
+    @Path("/simulate")
+    @Produces("application/json")
+    public String simulateVotes() {
+        CountMeUpController.simulateVotes();
+        return "{'success':'true'}";
+    }
+
+    /**
+     * The service method to allow users to vote from the front end. Invoked with a POST message containing JSON data
+     * including the voting member and their chosen candidate.
+     * @param data JSON string containing the userId and candidateId for the voting process.
+     * @return String JSON string with the result of the action.
+     */
     @POST
     @Path("/vote")
     @Produces("application/json")

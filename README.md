@@ -42,7 +42,7 @@ With these requirements and assumptions in place, I could design my application.
 
 My application design aimed to follow the simple MVC tennets, with an underlying data model in my database, the web service providing application data management, and the front end simply being a way to display and request interaction with the data. By having a separate database manager class and web service functional class, we decouple the underlying db from the web service.
 
-This was an important decision up front, as I'd decided I was going to run with a SQLite database to get up and running fast. I was unsure whether it would give me the performance I would need to achieve the sub-second response times from the advanced requirements, and luckily it did. However, as of writing I find the lack of support for connection pools causes clashes on the filelock when I get to testing real-time updates (more on that later). By having a db manager class, it's possible to replace SQLite in the future for something like mySQL, which would help us avoid these issues.
+This was an important decision up front, as I'd decided I was going to run with a SQLite database to get up and running fast. I was unsure whether it would give me the performance I would need to achieve the sub-second response times from the advanced requirements, and luckily it did. However, as of writing I find the lack of support for connection pools causes clashes on the filelock when I get to testing real-time updates (more on that later). By having a db manager class, it's possible to replace SQLite in the future for something like mySQL, which would help us avoid these issues. **__(See final update below)__**
 
 To reduce complexity when trying to count up how many votes a user had cast, I decided to simply create 2 tables - one which tracked the votes per candidate, and the other to track the votes per user. This allowed me to do simple lookups instead of needing to run expensive aggregation queries.
 
@@ -82,6 +82,8 @@ Additionally, I planned to test my applications ability to serve real-time resul
 Once deployed, the application can be used by loading up your localhost address in a browser and appending the path `HH_CountMeUp_war_exploded`.
 
 You may vote by entering your email address on the right and selecting a candidate to vote for. Additionally, you can select **Simulate Votes** to see the table update in real-time. *(As noted above, I did not get around to building a solution to the file locking issue that would suitably keep the request below 1 second, my fix would have been to use a mySQL database with connection pools.)* 
+
+**__FINAL UPDATE: After testing on Windows, it appears the filesystem handles SQLite access gracefully. I have achieved sub-second responses without seeing any internal server errors.__** 
 
 To run the jUnit tests, once the project has been built, run the following command from the project root:
 * Mac/Unix: `java -classpath lib/*:out/production/HH-CountMeUp/:out/test/HH-CountMeUp/ org.junit.runner.JUnitCore CountMeUpTest`

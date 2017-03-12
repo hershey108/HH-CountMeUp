@@ -53,44 +53,6 @@
     <exclude name="**/?*.clj"/>
   </patternset>
   
-  <!-- JDK definitions -->
-  
-  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
-  <path id="jdk.classpath.1.7">
-    <fileset dir="${jdk.home.1.7}">
-      <include name="lib/ant-javafx.jar"/>
-      <include name="lib/dt.jar"/>
-      <include name="lib/javafx-doclet.jar"/>
-      <include name="lib/javafx-mx.jar"/>
-      <include name="lib/jconsole.jar"/>
-      <include name="lib/sa-jdi.jar"/>
-      <include name="lib/tools.jar"/>
-      <include name="jre/lib/charsets.jar"/>
-      <include name="jre/lib/deploy.jar"/>
-      <include name="jre/lib/htmlconverter.jar"/>
-      <include name="jre/lib/javaws.jar"/>
-      <include name="jre/lib/jce.jar"/>
-      <include name="jre/lib/jfr.jar"/>
-      <include name="jre/lib/jfxrt.jar"/>
-      <include name="jre/lib/JObjC.jar"/>
-      <include name="jre/lib/jsse.jar"/>
-      <include name="jre/lib/management-agent.jar"/>
-      <include name="jre/lib/plugin.jar"/>
-      <include name="jre/lib/resources.jar"/>
-      <include name="jre/lib/rt.jar"/>
-      <include name="jre/lib/ext/dnsns.jar"/>
-      <include name="jre/lib/ext/localedata.jar"/>
-      <include name="jre/lib/ext/sunec.jar"/>
-      <include name="jre/lib/ext/sunjce_provider.jar"/>
-      <include name="jre/lib/ext/sunpkcs11.jar"/>
-      <include name="jre/lib/ext/zipfs.jar"/>
-    </fileset>
-  </path>
-  
-  <property name="project.jdk.home" value="${jdk.home.1.7}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.7}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.7"/>
-  
   
   <!-- Project Libraries -->
   
@@ -132,11 +94,8 @@
   <dirname property="module.hh-countmeup.basedir" file="${ant.file}"/>
   
   
-  <property name="module.jdk.home.hh-countmeup" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.hh-countmeup" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.hh-countmeup" value="${project.jdk.classpath}"/>
   
-  <property name="compiler.args.hh-countmeup" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  <property name="compiler.args.hh-countmeup" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   
   <property name="hh-countmeup.output.dir" value="${module.hh-countmeup.basedir}/out/production/HH-CountMeUp"/>
   <property name="hh-countmeup.testoutput.dir" value="${module.hh-countmeup.basedir}/out/test/HH-CountMeUp"/>
@@ -146,7 +105,6 @@
   </path>
   
   <path id="hh-countmeup.module.production.classpath">
-    <path refid="${module.jdk.classpath.hh-countmeup}"/>
     <path refid="library.jersey-2.2.classpath"/>
     <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
     <path refid="library.junit:junit:4.12.classpath"/>
@@ -162,7 +120,6 @@
   </path>
   
   <path id="hh-countmeup.module.classpath">
-    <path refid="${module.jdk.classpath.hh-countmeup}"/>
     <pathelement location="${hh-countmeup.output.dir}"/>
     <path refid="library.jersey-2.2.classpath"/>
     <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
@@ -206,7 +163,7 @@
   
   <target name="compile.module.hh-countmeup.production" description="Compile module HH-CountMeUp; production classes">
     <mkdir dir="${hh-countmeup.output.dir}"/>
-    <javac destdir="${hh-countmeup.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hh-countmeup}/javac">
+    <javac destdir="${hh-countmeup.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.hh-countmeup}"/>
       <bootclasspath refid="hh-countmeup.module.bootclasspath"/>
       <classpath refid="hh-countmeup.module.production.classpath"/>
@@ -228,7 +185,7 @@
   
   <target name="compile.module.hh-countmeup.tests" depends="compile.module.hh-countmeup.production" description="compile module HH-CountMeUp; test classes" unless="skip.tests">
     <mkdir dir="${hh-countmeup.testoutput.dir}"/>
-    <javac destdir="${hh-countmeup.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hh-countmeup}/javac">
+    <javac destdir="${hh-countmeup.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.hh-countmeup}"/>
       <bootclasspath refid="hh-countmeup.module.bootclasspath"/>
       <classpath refid="hh-countmeup.module.classpath"/>

@@ -84,5 +84,5 @@ Once deployed, the application can be used by loading up your localhost address 
 You may vote by entering your email address on the right and selecting a candidate to vote for. Additionally, you can select **Simulate Votes** to see the table update in real-time. *(As noted above, I did not get around to building a solution to the file locking issue that would suitably keep the request below 1 second, my fix would have been to use a mySQL database with connection pools.)* 
 
 To run the jUnit tests, once the project has been built, run the following command from the project root:
-* Mac/Unix: `java -classpath lib/*:out/production/CMUTest/:out/test/CMUTest/ org.junit.runner.JUnitCore CountMeUpTest`
-* Windows: `java -classpath lib/*;out/production/CMUTest/;out/test/CMUTest/ org.junit.runner.JUnitCore CountMeUpTest`
+* Mac/Unix: `java -classpath lib/*:out/production/HH-CountMeUp/:out/test/HH-CountMeUp/ org.junit.runner.JUnitCore CountMeUpTest`
+* Windows: `java -classpath lib/*;out/production/HH-CountMeUp/;out/test/HH-CountMeUp/ org.junit.runner.JUnitCore CountMeUpTest`

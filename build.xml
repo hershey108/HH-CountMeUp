@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hh-countmeup" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.ane"/>
+    <include name="*.zip"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
+  <path id="jdk.classpath.1.7">
+    <fileset dir="${jdk.home.1.7}">
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-doclet.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/htmlconverter.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/JObjC.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.7}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.7}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.7"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.com.googlecode.json-simple:json-simple:1.1.1.classpath">
+    <pathelement location="${basedir}/lib/hamcrest-core-1.1.jar"/>
+    <pathelement location="${basedir}/lib/json-simple-1.1.1.jar"/>
+    <pathelement location="${basedir}/lib/junit-4.10.jar"/>
+  </path>
+  
+  <path id="library.jersey-2.2.classpath">
+    <pathelement location="${basedir}/lib/javax.ws.rs-api-2.0.jar"/>
+    <pathelement location="${basedir}/lib/jersey-client.jar"/>
+    <pathelement location="${basedir}/lib/jersey-common.jar"/>
+    <pathelement location="${basedir}/lib/jersey-container-servlet-core.jar"/>
+    <pathelement location="${basedir}/lib/jersey-container-servlet.jar"/>
+    <pathelement location="${basedir}/lib/jersey-server.jar"/>
+  </path>
+  
+  <path id="library.junit:junit:4.12.classpath">
+    <pathelement location="${basedir}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${basedir}/lib/junit-4.12.jar"/>
+  </path>
+  
+  <path id="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath">
+    <pathelement location="${basedir}/lib/sqlite-jdbc-3.8.11.2.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  
+  
+  <!-- Application Server Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module HH-CountMeUp -->
+  
+  <dirname property="module.hh-countmeup.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.hh-countmeup" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.hh-countmeup" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.hh-countmeup" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.hh-countmeup" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="hh-countmeup.output.dir" value="${module.hh-countmeup.basedir}/out/production/HH-CountMeUp"/>
+  <property name="hh-countmeup.testoutput.dir" value="${module.hh-countmeup.basedir}/out/test/HH-CountMeUp"/>
+  
+  <path id="hh-countmeup.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="hh-countmeup.module.production.classpath">
+    <path refid="${module.jdk.classpath.hh-countmeup}"/>
+    <path refid="library.jersey-2.2.classpath"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath"/>
+  </path>
+  
+  <path id="hh-countmeup.runtime.production.module.classpath">
+    <pathelement location="${hh-countmeup.output.dir}"/>
+    <path refid="library.jersey-2.2.classpath"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath"/>
+  </path>
+  
+  <path id="hh-countmeup.module.classpath">
+    <path refid="${module.jdk.classpath.hh-countmeup}"/>
+    <pathelement location="${hh-countmeup.output.dir}"/>
+    <path refid="library.jersey-2.2.classpath"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath"/>
+  </path>
+  
+  <path id="hh-countmeup.runtime.module.classpath">
+    <pathelement location="${hh-countmeup.testoutput.dir}"/>
+    <pathelement location="${hh-countmeup.output.dir}"/>
+    <path refid="library.jersey-2.2.classpath"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.hh-countmeup">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.hh-countmeup">
+    <patternset refid="excluded.from.module.hh-countmeup"/>
+  </patternset>
+  
+  <path id="hh-countmeup.module.sourcepath">
+    <dirset dir="${module.hh-countmeup.basedir}">
+      <include name="src/main"/>
+      <include name="lib"/>
+    </dirset>
+  </path>
+  
+  <path id="hh-countmeup.module.test.sourcepath">
+    <dirset dir="${module.hh-countmeup.basedir}">
+      <include name="src/test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.hh-countmeup" depends="compile.module.hh-countmeup.production,compile.module.hh-countmeup.tests" description="Compile module HH-CountMeUp"/>
+  
+  <target name="compile.module.hh-countmeup.production" description="Compile module HH-CountMeUp; production classes">
+    <mkdir dir="${hh-countmeup.output.dir}"/>
+    <javac destdir="${hh-countmeup.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hh-countmeup}/javac">
+      <compilerarg line="${compiler.args.hh-countmeup}"/>
+      <bootclasspath refid="hh-countmeup.module.bootclasspath"/>
+      <classpath refid="hh-countmeup.module.production.classpath"/>
+      <src refid="hh-countmeup.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hh-countmeup"/>
+    </javac>
+    
+    <copy todir="${hh-countmeup.output.dir}">
+      <fileset dir="${module.hh-countmeup.basedir}/src/main">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.hh-countmeup.basedir}/lib">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.hh-countmeup.tests" depends="compile.module.hh-countmeup.production" description="compile module HH-CountMeUp; test classes" unless="skip.tests">
+    <mkdir dir="${hh-countmeup.testoutput.dir}"/>
+    <javac destdir="${hh-countmeup.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hh-countmeup}/javac">
+      <compilerarg line="${compiler.args.hh-countmeup}"/>
+      <bootclasspath refid="hh-countmeup.module.bootclasspath"/>
+      <classpath refid="hh-countmeup.module.classpath"/>
+      <src refid="hh-countmeup.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hh-countmeup"/>
+    </javac>
+    
+    <copy todir="${hh-countmeup.testoutput.dir}">
+      <fileset dir="${module.hh-countmeup.basedir}/src/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.hh-countmeup" description="cleanup module">
+    <delete dir="${hh-countmeup.output.dir}"/>
+    <delete dir="${hh-countmeup.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.hh-countmeup, clean.artifact.hh-countmeup:war_exploded" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.hh-countmeup" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.hh-countmeup:war_exploded" value="${basedir}/out/artifacts/HH_CountMeUp_war_exploded"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="clean.artifact.hh-countmeup:war_exploded" description="clean HH-CountMeUp:war exploded artifact output">
+    <delete dir="${artifact.output.hh-countmeup:war_exploded}"/>
+  </target>
+  
+  <target name="artifact.hh-countmeup:war_exploded" depends="init.artifacts, compile.module.hh-countmeup" description="Build &#39;HH-CountMeUp:war exploded&#39; artifact">
+    <mkdir dir="${artifact.output.hh-countmeup:war_exploded}"/>
+    <copy todir="${artifact.output.hh-countmeup:war_exploded}">
+      <fileset dir="${basedir}/web"/>
+    </copy>
+    <mkdir dir="${artifact.output.hh-countmeup:war_exploded}/WEB-INF"/>
+    <copy file="${basedir}/web/WEB-INF/web.xml" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/web.xml"/>
+    <mkdir dir="${artifact.output.hh-countmeup:war_exploded}/WEB-INF"/>
+    <mkdir dir="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/classes">
+      <fileset dir="${hh-countmeup.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib"/>
+    <copy file="${basedir}/lib/javax.ws.rs-api-2.0.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/javax.ws.rs-api-2.0.jar"/>
+    <copy file="${basedir}/lib/jersey-container-servlet.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/jersey-container-servlet.jar"/>
+    <copy file="${basedir}/lib/jersey-client.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/jersey-client.jar"/>
+    <copy file="${basedir}/lib/jersey-container-servlet-core.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/jersey-container-servlet-core.jar"/>
+    <copy file="${basedir}/lib/jersey-common.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/jersey-common.jar"/>
+    <copy file="${basedir}/lib/jersey-server.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/jersey-server.jar"/>
+    <copy file="${basedir}/lib/json-simple-1.1.1.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/json-simple-1.1.1.jar"/>
+    <copy file="${basedir}/lib/junit-4.10.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/junit-4.10.jar"/>
+    <copy file="${basedir}/lib/hamcrest-core-1.1.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/hamcrest-core-1.1.jar"/>
+    <copy file="${basedir}/lib/junit-4.12.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/junit-4.12.jar"/>
+    <copy file="${basedir}/lib/hamcrest-core-1.3.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <copy file="${basedir}/lib/sqlite-jdbc-3.8.11.2.jar" tofile="${artifact.output.hh-countmeup:war_exploded}/WEB-INF/lib/sqlite-jdbc-3.8.11.2.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.hh-countmeup:war_exploded" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

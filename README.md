@@ -68,10 +68,21 @@ Additionally, I planned to test my applications ability to serve real-time resul
 
 ##Deploying and Testing
 
+###Deployment
+
+1. Run to build the project files using the provided build.xml file.
+`ant build`
+2. Start glassfish server
+*`PATH/TO/GLASSFISH/`*`bin/asadmin start-domain`
+3. Deploy the application from the project root
+*`PATH/TO/GLASSFISH/`*`bin/asadmin deploy out/artifacts/HH_CountMeUp_war_exploded`
+
 ### Testing
 
-The java tests have been defined in CountMeUpTest, using jUnit. They can be run simply by compiling the application and running that class. Ensure you have all the jars in the lib folder in your path.
+Once deployed, the application can be used by loading up your localhost address in a browser and appending the path `HH_CountMeUp_war_exploded`.
 
-Additionally, once deployed, the **Simulate Votes** button on the front end is useful for watching the table update with the random votes.
+You may vote by entering your email address on the right and selecting a candidate to vote for. Additionally, you can select **Simulate Votes** to see the table update in real-time. *(As noted above, I did not get around to building a solution to the file locking issue that would suitably keep the request below 1 second, my fix would have been to use a mySQL database with connection pools.)* 
 
-###Deployment
+To run the jUnit tests, once the project has been built, run the following command from the project root:
+* Mac/Unix: `java -classpath lib/*:out/production/CMUTest/:out/test/CMUTest/ org.junit.runner.JUnitCore CountMeUpTest`
+* Windows: `java -classpath lib/*;out/production/CMUTest/;out/test/CMUTest/ org.junit.runner.JUnitCore CountMeUpTest`
